@@ -6,6 +6,9 @@
       <excludeFolder url="file://$MODULE_DIR$/SystemOverlayStyle/build" />
       <excludeFolder url="file://$MODULE_DIR$/SystemOverlayStyle/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/SystemOverlayStyle/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/SingleChildScrollView/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/SingleChildScrollView/build" />
+      <excludeFolder url="file://$MODULE_DIR$/SingleChildScrollView/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
