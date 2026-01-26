@@ -1,0 +1,7 @@
+name: my_dart_practice
+environment:
+  sdk: ^3.0.0 # Dart SDK Version
+
+dependencies:
+  flutter:
+    sdk: flutter # Package source
