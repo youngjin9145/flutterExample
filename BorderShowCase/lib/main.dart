@@ -998,7 +998,7 @@ class MyPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final path = Path();
     path.moveTo(0, 0);
-    path.lineTo(100, 0);
+    path.quadraticBezierTo(100, 0, 10,100);
     path.lineTo(50, 100);
     path.close();
 
