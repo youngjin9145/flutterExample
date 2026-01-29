@@ -74,6 +74,7 @@ class _BorderShowcasePageState extends State<BorderShowcasePage>
           InputBorderSection(),
           BorderRadiusSection(),
           DecorationSection(),
+          CustomPaintSection(),
         ],
       ),
     );
@@ -973,7 +974,46 @@ class DecorationSection extends StatelessWidget {
   }
 }
 
+class CustomPaintSection extends StatelessWidget {
+  const CustomPaintSection();
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.all(16),
+      children: [
+        SizedBox(
+          height: 50,
+          width: 50,
+          child: CustomPaint(
+            painter: MyPainter(),
+          ),
+        )
+      ],
+    );
+  }
+}
 
+class MyPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = Path();
+    path.moveTo(0, 0);
+    path.lineTo(100, 0);
+    path.lineTo(50, 100);
+    path.close();
+
+    final paint = Paint();
+    paint.color = Colors.blue;
+    paint.style = PaintingStyle.fill;
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant MyPainter oldDelegate) {
+    return false;
+  }
+}
 
 // ============================================================
 // Animated Border Demo
