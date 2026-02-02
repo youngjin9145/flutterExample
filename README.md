@@ -30,9 +30,9 @@
 | 7 | `RowColumnBasic` | Row, Column, MainAxis/CrossAxis 정렬 | ✅ |
 | 8 | `WrapWidget` | Wrap으로 자동 줄바꿈 | ✅ |
 | 9 | `ExpandedFlexible` | Expanded vs Flexible 차이 | ✅ |
-| 10 | `ContainerDecoration` | Container의 다양한 decoration | ⬜ |
-| 11 | `SizedBoxSpacing` | SizedBox로 간격 조절 | ⬜ |
-| 12 | `AspectRatioWidget` | 비율 유지 위젯 | ⬜ |
+| 10 | `ContainerDecoration` | Container의 다양한 decoration | ✅ |
+| 11 | `SizedBoxSpacing` | SizedBox로 간격 조절 | ✅ |
+| 12 | `AspectRatioWidget` | 비율 유지 위젯 | ✅ |
 
 ---
 
