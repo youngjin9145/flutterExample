@@ -1,25 +1,48 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Step1Basic());
+  runApp(const MyApp());
 }
 
-class Step1Basic extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('Step 1: 기본 TextField')),
-        body: Padding(
-          padding: EdgeInsets.all(16),
-          child: TextField(
-            decoration: InputDecoration(
-              labelText: '이름을 입력하세요',
-              border: OutlineInputBorder(),
-            ),
+      home: Step2Controller()
+    );
+  }
+}
+
+class Step2Controller extends StatefulWidget {
+  @override
+  _Step2ControllerState createState() => _Step2ControllerState();
+}
+
+class _Step2ControllerState extends State<Step2Controller> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Step 2: Controller 연결')),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: TextField(
+          controller: _controller,
+          decoration: InputDecoration(
+            labelText: '메시지 입력',
+            border: OutlineInputBorder()
           ),
         ),
-      ),
+      )
     );
   }
 }
