@@ -9,21 +9,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Step2Controller());
+    return MaterialApp(home: Step4Controller());
   }
 }
 
-class Step2Controller extends StatefulWidget {
+class Step4Controller extends StatefulWidget {
   @override
-  _Step2ControllerState createState() => _Step2ControllerState();
+  _Step4ControllerState createState() => _Step4ControllerState();
 }
 
-class _Step2ControllerState extends State<Step2Controller> {
+class _Step4ControllerState extends State<Step4Controller> {
   final TextEditingController _controller = TextEditingController();
-  String _displayText = '';
+  int _charCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_onTextChange); // _controller 의 값이 바뀔 때 마다 실행.
+  }
+
+  void _onTextChange() {
+    setState(() {
+      _charCount = _controller.text.length;
+    });
+  }
 
   @override
   void dispose() {
+    _controller.removeListener(_onTextChange);
     _controller.dispose();
     super.dispose();
   }
@@ -31,60 +44,48 @@ class _Step2ControllerState extends State<Step2Controller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Step 2: Controller 연결')),
+      appBar: AppBar(title: Text('Step 4: 실시간 감지')),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
             TextField(
               controller: _controller,
+              maxLength: 50,
               decoration: InputDecoration(
-                labelText: '메시지 입력',
-                border: OutlineInputBorder(),
+                labelText: '자기소개',
+                hintText: '50자 이내로 입력해주세요',
+                prefixIcon: Icon(Icons.person),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.blue, width: 2),
+                )
               ),
             ),
             SizedBox(height: 16),
 
-            Wrap(
-              spacing: 4,
-              runSpacing: 4,
-              children: [
-                ElevatedButton(
-                  // 텍스트 읽기
-                  onPressed: () {
-                    setState(() {
-                      _displayText = _controller.text;
-                    });
-                  },
-                  child: Text('텍스트 가져오기'),
-                ),
-                SizedBox(width: 8),
-
-                // 텍스트 쓰기
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _controller.text = 'Hello Flutter!';
-                    });
-                  },
-                  child: Text('텍스트 설정'),
-                ),
-                SizedBox(width: 8),
-
-                // 텍스트 지우기
-                ElevatedButton(
-                  onPressed: () {
-                    _controller.clear();
-                    setState(() {
-                      _displayText = '';
-                    });
-                  },
-                  child: Text('지우기'),
-                ),
-              ]
+            Text(
+              '글자 수: $_charCount / 50',
+              style: TextStyle(
+                color: _charCount > 40 ? Colors.red : Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(height: 24),
-            Text('입력된 텍스트: $_displayText', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 8),
+
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                '미리보기: ${_controller.text.isEmpty ? '(입력 대기중...)' : _controller.text}'
+              ),
+            )
           ],
         ),
       ),
