@@ -40,8 +40,8 @@
 
 | Day | 폴더명 | 개념 | 상태 |
 |-----|--------|------|------|
-| 13 | `TextFieldBasic` | TextField, TextEditingController | ⬜ |
-| 14 | `FormValidation` | Form, GlobalKey, validator | ⬜ |
+| 13 | `TextFieldBasic` | TextField, TextEditingController | ✅ |
+| 14 | `FormValidation` | Form, GlobalKey, validator | ✅ |
 | 15 | `GestureDetectorInkWell` | 터치 이벤트 처리 | ⬜ |
 | 16 | `CheckboxRadioSwitch` | 체크박스, 라디오, 스위치 | ⬜ |
 | 17 | `SliderRangeSlider` | 슬라이더 위젯들 | ⬜ |
