@@ -32,10 +32,15 @@ class _FormValidationPageState extends State<FormValidationPage> {
   // ============================================================
   final _formKey = GlobalKey<FormState>();
 
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
+  // controller 방식: 비밀번호 확인 비교용으로만 사용
   final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+
+  // ============================================================
+  // onSaved 방식: save() 호출 시 여기에 값이 저장됨
+  // ============================================================
+  String? _savedName;
+  String? _savedEmail;
+  String? _savedPassword;
 
   bool _obscurePassword = true;
   bool _obscureConfirm = true;
@@ -45,10 +50,7 @@ class _FormValidationPageState extends State<FormValidationPage> {
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
     _passwordController.dispose();
-    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -57,13 +59,31 @@ class _FormValidationPageState extends State<FormValidationPage> {
     // 핵심 2: _formKey.currentState!.validate()로 모든 필드 검증
     // ============================================================
     if (_formKey.currentState!.validate()) {
-      // 핵심 3: validate() 통과 후 save()로 값 저장 가능
+      // ============================================================
+      // 핵심 3: save() → 모든 TextFormField의 onSaved 콜백 실행
+      // ============================================================
       _formKey.currentState!.save();
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('회원가입 성공! 환영합니다 🎉'),
-          backgroundColor: Colors.green,
+      // save() 후 _savedName, _savedEmail, _savedPassword에 값이 들어있음
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('회원가입 성공!'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('이름: $_savedName'),
+              Text('이메일: $_savedEmail'),
+              Text('비밀번호: ${'*' * (_savedPassword?.length ?? 0)}'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('확인'),
+            ),
+          ],
         ),
       );
     } else {
@@ -77,12 +97,14 @@ class _FormValidationPageState extends State<FormValidationPage> {
   void _resetForm() {
     // ============================================================
     // 핵심 4: reset()으로 폼 초기화
+    // - reset(): 에러 메시지 제거 + 입력값 초기화 (onSaved 방식에선 이것만으로 충분)
+    // - controller.clear(): controller를 쓰는 필드만 추가로 필요
     // ============================================================
     _formKey.currentState!.reset();
-    _nameController.clear();
-    _emailController.clear();
     _passwordController.clear();
-    _confirmPasswordController.clear();
+    _savedName = null;
+    _savedEmail = null;
+    _savedPassword = null;
     setState(() {
       _autovalidateMode = AutovalidateMode.disabled;
     });
@@ -134,9 +156,8 @@ class _FormValidationPageState extends State<FormValidationPage> {
               autovalidateMode: _autovalidateMode,
               child: Column(
                 children: [
-                  // 이름 필드
+                  // 이름 필드 (onSaved 방식 - controller 없음)
                   TextFormField(
-                    controller: _nameController,
                     decoration: InputDecoration(
                       labelText: '이름',
                       hintText: '홍길동',
@@ -157,13 +178,16 @@ class _FormValidationPageState extends State<FormValidationPage> {
                       }
                       return null; // 검증 통과
                     },
+                    // 핵심: save() 호출 시 이 콜백이 실행됨
+                    onSaved: (value) {
+                      _savedName = value?.trim();
+                    },
                   ),
 
                   const SizedBox(height: 16),
 
-                  // 이메일 필드
+                  // 이메일 필드 (onSaved 방식 - controller 없음)
                   TextFormField(
-                    controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       labelText: '이메일',
@@ -184,11 +208,14 @@ class _FormValidationPageState extends State<FormValidationPage> {
                       }
                       return null;
                     },
+                    onSaved: (value) {
+                      _savedEmail = value?.trim();
+                    },
                   ),
 
                   const SizedBox(height: 16),
 
-                  // 비밀번호 필드
+                  // 비밀번호 필드 (controller 유지 - 비밀번호 확인 비교용)
                   TextFormField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
@@ -227,13 +254,15 @@ class _FormValidationPageState extends State<FormValidationPage> {
                       }
                       return null;
                     },
+                    onSaved: (value) {
+                      _savedPassword = value;
+                    },
                   ),
 
                   const SizedBox(height: 16),
 
                   // 비밀번호 확인 필드 (다른 필드 값과 비교하는 validator)
                   TextFormField(
-                    controller: _confirmPasswordController,
                     obscureText: _obscureConfirm,
                     decoration: InputDecoration(
                       labelText: '비밀번호 확인',
