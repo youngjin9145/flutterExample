@@ -63,6 +63,62 @@ class _GestureInWellPageState extends State<GestureInWellPage> {
               ),
             ),
             const SizedBox(height: 32),
+
+            // ============================================================
+            // 1. GestureDetector - 물결 효과 없음, 다양한 제스처 감지
+            // ============================================================
+            Text(
+              'GestureDetector',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+
+            GestureDetector(
+              onTap: () => _updateEvent('GestureDetector: onTap'),
+              onDoubleTap: () => _updateEvent('GestureDetector: onDoubleTap'),
+              onLongPress: () => _updateEvent('GestureDetector: onLongPress'),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.teal.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.teal.shade200),
+                ),
+                child: const Text(
+                  '탭 / 더블탭 / 길게 누르기',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            GestureDetector(
+              onPanUpdate: (details) {
+                _updateEvent(
+                  'GestureDetector: 드래그 '
+                  'dx=${details.delta.dx.toStringAsFixed(1)}, '
+                  'dy=${details.delta.dy.toStringAsFixed(1)}',
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.orange.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.orange.shade200),
+                ),
+                child: const Text(
+                  '여기를 드래그 해보세요',
+                  textAlign: TextAlign.center,
+                ),
+              )
+            ),
+            const SizedBox(height: 32,)
           ],
         ),
       ),
