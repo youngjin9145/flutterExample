@@ -118,7 +118,60 @@ class _GestureInWellPageState extends State<GestureInWellPage> {
                 ),
               )
             ),
-            const SizedBox(height: 32,)
+            const SizedBox(height: 32,),
+
+            // ============================================================
+            // 2. InkWell - Material 물결(ripple) 효과 있음
+            // ============================================================
+            Text(
+              'InkWell',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Material로 감싸야 물결 효과가 보임
+            Material(
+              color: Colors.blue.shade50,
+              borderRadius: BorderRadius.circular(12),
+              child: InkWell(
+                onTap: () => _updateEvent('InkWell: onTap (물결 효과!)'),
+                onDoubleTap: () => _updateEvent('InkWell: onDoubleTap'),
+                onLongPress: () => _updateEvent('InkWell: onLongPress'),
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  child: const Text(
+                    '탭하면 물결 효과가 보입니다',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // splashColor, highlightColor 커스텀
+            Material(
+              color: Colors.purple.shade50,
+              borderRadius: BorderRadius.circular(12),
+              child: InkWell(
+                onTap: () => _updateEvent('InkWell: 커스텀 물결 색상'),
+                splashColor: Colors.purple.withValues(alpha: 0.3),
+                highlightColor: Colors.purple.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  child: const Text(
+                      'splashColor / highlightColor 커스텀',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
