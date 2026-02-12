@@ -172,9 +172,56 @@ class _GestureInWellPageState extends State<GestureInWellPage> {
                   ),
                 ),
               ),
+
+              const SizedBox(height: 32),
+
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'GestureDetector vs InkWell',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      _buildCompareRow('물결 효과', '없음', '있음 (Material)'),
+                      _buildCompareRow('드래그', 'onPanUpdate 지원', '지원 안 함'),
+                      _buildCompareRow('스케일', 'onScaleUpdate 지원', '지원 안 함'),
+                      _buildCompareRow('용도', '커스텀 제스처', '버튼처럼 쓸 때'),
+                    ],
+                  ),
+                ),
+              )
           ],
         ),
       ),
     );
   }
+}
+
+Widget _buildCompareRow(String label, String gesture, String inkwell) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      children: [
+        SizedBox(
+          width: 70,
+          child: Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          ),
+        ),
+        Expanded(
+          child: Text('GD: $gesture', style: const TextStyle(fontSize: 12)),
+        ),
+        Expanded(
+          child: Text('IW: $inkwell', style: const TextStyle(fontSize: 12)),
+        ),
+      ],
+    ),
+  );
 }
