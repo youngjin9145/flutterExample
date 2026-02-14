@@ -42,7 +42,7 @@
 |-----|--------|------|------|
 | 13 | `TextFieldBasic` | TextField, TextEditingController | ✅ |
 | 14 | `FormValidation` | Form, GlobalKey, validator | ✅ |
-| 15 | `GestureDetectorInkWell` | 터치 이벤트 처리 | ✅ |
+| 15 | `GestureDetectorInkWell` | 터치 이벤트 처리 | ✅ | 
 | 16 | `CheckboxRadioSwitch` | 체크박스, 라디오, 스위치 | ⬜ |
 | 17 | `SliderRangeSlider` | 슬라이더 위젯들 | ⬜ |
 | 18 | `DropdownPopupMenu` | 드롭다운, 팝업메뉴 | ⬜ |
