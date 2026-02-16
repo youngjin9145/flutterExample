@@ -45,7 +45,7 @@
 | 15 | `GestureDetectorInkWell` | 터치 이벤트 처리 | ✅ | 
 | 16 | `CheckboxRadioSwitch` | 체크박스, 라디오, 스위치 | ⬜ |
 | 17 | `SliderRangeSlider` | 슬라이더 위젯들 | ⬜ | 
-| 18 | `DropdownPopupMenu` | 드롭다운, 팝업메뉴 | ⬜ |
+| 18 | `DropdownPopupMenu` | 드롭다운, 팝업메뉴 | ⬜ | 
 
 ---
 
